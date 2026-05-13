@@ -12,11 +12,13 @@ To ensure the continuity and quality of our pipelines and applications, we maint
 * **`main`**: Contains the stable production code. For Airflow repositories this branch is the source of truth for the DAGs running on the production scheduler; for application and pipeline repositories it represents the deployed version. **Direct pushes to `main` are strictly prohibited.**
 * **`feature/*`**: Branches dedicated to individual functional developments, refactors, and bug fixes. Branched from the most recent version of `main` (or `staging`, where applicable).
 
-### 2. Quality Assurance
+### 2. Repository Strategy
+* Put source code in /src folder. For possible web development project via Next.js: frontend related code in /web folder, backend if not within Next.js in /src folder.
+* Always write fitting README.md files in root folder to explain exactly to your collegae how your codebase operates.
+
+### 3. Quality Assurance
 * **Pull Requests**: Every code change is subject to a peer review before being merged. Reviews focus on correctness, readability, observability (logging / alerting), and impact on downstream consumers.
-* **Continuous Integration**: Every pull request triggers automated checks via GitHub Actions, including:
-  * **Linting & formatting** (`ruff`, `black`) to enforce a consistent code style.
-  * **Static type checking** (`mypy`) where type hints are used.
+* **Continuous Integration**: Every pull request is monitored by Github runner, installed on the server:
   * **Unit tests** (`pytest`) for business logic and helper modules.
   * **Airflow DAG validation** for Airflow repositories — DAGs are imported in an isolated environment to catch parse errors, missing dependencies, and cyclic references before they reach the scheduler.
 * **Continuous Deployment**: On a successful merge to `main`, a self-hosted GitHub Actions runner deployed on our internal server pulls the latest code, so the production environment stays in sync with the repository without manual intervention. This pattern is described in detail in the `ssh_connection_semwerkt` documentation.
