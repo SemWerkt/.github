@@ -10,7 +10,6 @@ To ensure the continuity and quality of our pipelines and applications, we maint
 
 ### 1. Branching Strategy
 * **`main`**: Contains the stable production code. For Airflow repositories this branch is the source of truth for the DAGs running on the production scheduler; for application and pipeline repositories it represents the deployed version. **Direct pushes to `main` are strictly prohibited.**
-* **`staging`** *(where applicable)*: A pre-production branch used for integration testing of DAGs and pipelines against non-production data sources, prior to promotion to `main`. Not every repository requires a `staging` branch — it is used where a separate validation environment exists.
 * **`feature/*`**: Branches dedicated to individual functional developments, refactors, and bug fixes. Branched from the most recent version of `main` (or `staging`, where applicable).
 
 ### 2. Quality Assurance
